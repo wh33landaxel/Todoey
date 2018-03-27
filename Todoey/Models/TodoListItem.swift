@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodoListItem {
+class TodoListItem : Codable {
 
     var itemTitle : String = ""
     var isDone : Bool = false
