@@ -12,9 +12,18 @@ class TodoListViewController: UITableViewController {
     
     let todoListCellId = "TodoListCellId"
     var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    
+    let defaults = UserDefaults.standard
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let todoListArray : [String] = defaults.value(forKey: "TodoListArray") as? [String] else {
+            return
+        }
+        
+        itemArray = todoListArray
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -32,6 +41,8 @@ class TodoListViewController: UITableViewController {
         
         return cell
     }
+    
+    //MARK:- TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -63,6 +74,8 @@ class TodoListViewController: UITableViewController {
             }
             
             self.itemArray.append(text)
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+
             self.tableView.reloadData()
         }
         
